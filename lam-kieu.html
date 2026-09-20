@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><link rel="icon" type="image/jpeg" href="favicon.jpg">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Moonlit Camp</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+SC:wght@500;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
 <style>
+</head>
 *{box-sizing:border-box}
 :root{--panel:#f5e6c4;--ink:#3a2314;--wood:#6a4029;--wood-hi:#9a6238;--fire:#ff9a3c;--bar:#d9c08f;--hud:rgba(20,18,50,.74);--cream:#fff1cf}
 #scene,.ic{shape-rendering:crispEdges;image-rendering:pixelated}
@@ -121,8 +122,7 @@ nav small{font-size:7px}.btn,.chb{font-size:10px}.spine{font-size:9px}.lab text{
 #vol{width:150px;vertical-align:middle;margin-right:8px}
 h1{font-family:'VT323',monospace;font-size:clamp(28px,4.5vw,44px);line-height:1.1}
 .hf{transform-box:fill-box;transform-origin:50% 100%;transition:transform .3s steps(4)}
-.head{transform-box:fill-box;transform-origin:50% 100%;animation:gaze 16s steps(3) infinite}
-@keyframes gaze{0%,38%{transform:rotate(8deg)}46%,68%{transform:rotate(-16deg)}76%,100%{transform:rotate(8deg)}}
+.head{transform-box:fill-box;transform-origin:50% 100%;transform:scaleX(-1) rotate(0deg)}
 @keyframes sway{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
 @keyframes sway2{from{transform:rotate(5deg)}to{transform:rotate(9deg)}}
 #gate{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:#0d1030;text-align:center;overflow:hidden}
@@ -136,6 +136,15 @@ h1{font-family:'VT323',monospace;font-size:clamp(28px,4.5vw,44px);line-height:1.
 .win{fill:#a9dcea}#scene.night .win{fill:#ffcb5c}#scene.dusk .win{fill:#ffb77a}
 .sg{font-family:'Press Start 2P',monospace;font-size:15px;fill:#ffd66b;text-anchor:middle}
 :lang(zh) .sg{font-family:'ZCOOL KuaiLe','Noto Sans SC',sans-serif;font-size:24px}
+:root[data-period="morning"] h1,
+:root[data-period="noon"] h1,
+:root[data-period="morning"] .role,
+:root[data-period="noon"] .role{
+  color:#2a1408;
+  text-shadow:0 0 3px #fff8dc,0 0 6px #fff8dc,0 2px 0 #fff8dc;
+}
+:root[data-period="morning"] nav small,
+:root[data-period="noon"] nav small{color:#fff1cf}
 </style>
 </head>
 <body>
@@ -332,6 +341,7 @@ if(k==='night')for(let y=440;y<586;y+=12){const w=(10+rn()*40)|0;R(760-w/2,y,w,3
 if(k==='noon'){for(let j=0;j<14;j++)R((rn()*900)|0,440+j*10,(24+rn()*50)|0,3,'#fff');
  const palm=(x,y,d)=>{let tx=x,ty=y;for(let i=0;i<9;i++){R(tx,ty-14,8,14,'#7a4b3a');tx+=d*3;ty-=14}[[-1,-.3],[-1,.25],[1,-.3],[1,.25],[-.5,-.9],[.5,-.9]].forEach(a=>{for(let j=1;j<7;j++)R(Math.round(tx+a[0]*j*9+4),Math.round(ty+a[1]*j*9+j*j*.9),10,6,j<4?'#2f8f3a':'#3faa4a')})};palm(110,600,1);palm(890,600,-1)}
 $('#scenery').innerHTML=o.join('');$('#scene').setAttribute('class',k);
+document.documentElement.setAttribute('data-period',k);
 const D={dusk:['#ff7a3a',.1],night:['#0a0f3a',.28]}[k]||['#000',0],dm=$('#dim');dm.setAttribute('fill',D[0]);dm.setAttribute('opacity',D[1])}
 </script>
 </body>
